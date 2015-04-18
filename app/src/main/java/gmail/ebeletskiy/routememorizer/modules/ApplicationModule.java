@@ -11,7 +11,11 @@ import javax.inject.Singleton;
 
 @Module(
     injects = App.class,
-    includes = { ApiModule.class },
+    includes = {
+        ApiModule.class,
+        UtilsModule.class,
+        ApiModule.class
+    },
     library = true)
 public class ApplicationModule {
 

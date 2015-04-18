@@ -2,6 +2,8 @@ package gmail.ebeletskiy.routememorizer.modules;
 
 import dagger.Module;
 import dagger.Provides;
+import gmail.ebeletskiy.routememorizer.events.ApiClientConnectedEvent;
+import gmail.ebeletskiy.routememorizer.events.LocationUpdateEvent;
 import gmail.ebeletskiy.routememorizer.services.ILocationServicePresenter;
 import gmail.ebeletskiy.routememorizer.services.ILocationServicePresenterImpl;
 import gmail.ebeletskiy.routememorizer.services.LocationService;
