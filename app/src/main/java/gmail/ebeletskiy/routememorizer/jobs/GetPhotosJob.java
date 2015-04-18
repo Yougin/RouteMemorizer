@@ -3,9 +3,11 @@ package gmail.ebeletskiy.routememorizer.jobs;
 import android.location.Location;
 import com.path.android.jobqueue.Params;
 import de.greenrobot.event.EventBus;
+import gmail.ebeletskiy.routememorizer.data.PhotoUrlsDao;
 import gmail.ebeletskiy.routememorizer.data.api.WebService;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.data.api.response.PhotosResponse;
+import gmail.ebeletskiy.routememorizer.events.NoPhotoAvailableEvent;
 import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
 import gmail.ebeletskiy.routememorizer.utils.location.LocationBoundaryHelper;
 import javax.inject.Inject;
@@ -16,10 +18,12 @@ public class GetPhotosJob extends BaseJob {
   private static final int FIRST_IMAGE = 0;
 
   @NotNull private final Location location;
+
   @Inject WebService webService;
   @Inject EventBus bus;
   @Inject LocationBoundaryHelper locationBoundaryHelper;
   @Inject RefreshPhotosEvent refreshPhotosEvent;
+  @Inject PhotoUrlsDao photosDao;
 
   public GetPhotosJob(@NotNull Location location) {
     super(new Params(Priority.NORMAL).requireNetwork().persist());
@@ -45,12 +49,13 @@ public class GetPhotosJob extends BaseJob {
     if (photo != null) {
       persistPhoto(photo.getPhotoUrl());
       bus.postSticky(refreshPhotosEvent);
+    } else {
+      bus.postSticky(new NoPhotoAvailableEvent()); // TODO: Handle event
     }
   }
 
   private void persistPhoto(String photoUrl) {
-    // TODO: implement me
-
+    photosDao.savePhotoUrl(photoUrl);
   }
 
   @Override protected void onCancel() {
