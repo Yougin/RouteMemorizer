@@ -11,12 +11,11 @@ import javax.inject.Singleton;
 @Module(library = true, complete = false)
 public class DataModule {
 
-  @Singleton @Provides PhotoUrlsDao providePhotoUrlsDao() {
-    return new RealmPhotoUrlsDao();
+  @Singleton @Provides PhotoUrlsDao providePhotoUrlsDao(RealmPhotoUrlsDao dao) {
+    return dao;
   }
 
   @Singleton @Provides Realm provideRealm(App app) {
     return Realm.getInstance(app);
   }
-
 }

@@ -8,5 +8,5 @@ public interface PhotoUrlsDao {
 
   List<Photo> getAllPhotos();
 
-  void savePhoto(@NotNull Photo photoUrl);
+  void savePhoto(@NotNull Photo photo);
 }

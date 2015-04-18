@@ -1,16 +1,33 @@
 package gmail.ebeletskiy.routememorizer.data;
 
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
+import io.realm.Realm;
 import java.util.List;
+import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
+import timber.log.Timber;
 
 public class RealmPhotoUrlsDao implements PhotoUrlsDao {
 
-  @Override public List<Photo> getAllPhotos() {
-    return null;
+  private final Realm realm;
+
+  @Inject public RealmPhotoUrlsDao(Realm realm) {
+    this.realm = realm;
   }
 
-  @Override public void savePhoto(@NotNull Photo photoUrl) {
+  @Override public List<Photo> getAllPhotos() {
+    Timber.d(
+        "Quering for all photos, the amount of photos in db is " + realm.allObjects(Photo.class)
+            .size());
 
+    return realm.allObjects(Photo.class);
+  }
+
+  @Override public void savePhoto(@NotNull Photo photo) {
+    Timber.d("Saving photo object: " + photo);
+
+    realm.beginTransaction();
+    realm.copyToRealm(photo);
+    realm.commitTransaction();
   }
 }

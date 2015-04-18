@@ -2,8 +2,9 @@ package gmail.ebeletskiy.routememorizer.data.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.realm.RealmObject;
 
-public class Photo {
+public class Photo extends RealmObject {
 
   @Expose private long height;
   @Expose private double latitude;
@@ -185,6 +186,7 @@ public class Photo {
   public void setWidth(long width) {
     this.width = width;
   }
+
 }
 
 
