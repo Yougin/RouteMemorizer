@@ -4,10 +4,10 @@ import android.location.Location;
 import android.os.Bundle;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.events.ApiClientConnectedEvent;
-import gmail.ebeletskiy.routememorizer.events.LocationUpdateEvent;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,18 +19,15 @@ public class UserLocationProvider
 
   private final GoogleApiClient.Builder builder;
   private final EventBus bus;
-  private final LocationUpdateEvent locationUpdateEvent;
   private final ApiClientConnectedEvent apiClientConnectedEvent;
 
   private GoogleApiClient mApiClient;
   private Location lastKnownUserLocation;
 
   public UserLocationProvider(@NotNull GoogleApiClient.Builder builder, @NotNull EventBus bus,
-      @NotNull LocationUpdateEvent locationUpdateEvent,
-      ApiClientConnectedEvent apiClientConnectedEvent) {
+      @NotNull ApiClientConnectedEvent apiClientConnectedEvent) {
     this.builder = Preconditions.checkNotNull(builder);
     this.bus = Preconditions.checkNotNull(bus);
-    this.locationUpdateEvent = Preconditions.checkNotNull(locationUpdateEvent);
     this.apiClientConnectedEvent = Preconditions.checkNotNull(apiClientConnectedEvent);
   }
 
@@ -63,6 +60,14 @@ public class UserLocationProvider
 
   @Override @Nullable public Location getLastKnownUserLocation() {
     return lastKnownUserLocation;
+  }
+
+  @Override public void setLocationUpdateListener(LocationListener locationUpdateListener) {
+    // TODO:
+  }
+
+  @Override public void startLocationUpdates() {
+    // TODO:
   }
 
   @Override public void onConnected(Bundle bundle) {

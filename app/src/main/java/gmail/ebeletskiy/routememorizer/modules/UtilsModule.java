@@ -21,7 +21,7 @@ public class UtilsModule {
   @Provides @Singleton ILocationProvider provideUserLocationProvider(GoogleApiClient.Builder client,
       EventBus bus, LocationUpdateEvent locationUpdateEvent,
       ApiClientConnectedEvent apiClientConnectedEvent) {
-    return new UserLocationProvider(client, bus, locationUpdateEvent, apiClientConnectedEvent);
+    return new UserLocationProvider(client, bus, apiClientConnectedEvent);
   }
 
   @Provides @Singleton ApiClientConnectedEvent provideApiClientConnectedEvent() {
