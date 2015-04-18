@@ -7,11 +7,11 @@ import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import timber.log.Timber;
 
-public class RealmPhotoUrlsDao implements PhotoUrlsDao {
+public class RealmPhotosDao implements PhotosDao {
 
   private final Realm realm;
 
-  @Inject public RealmPhotoUrlsDao(Realm realm) {
+  @Inject public RealmPhotosDao(Realm realm) {
     this.realm = realm;
   }
 

@@ -3,7 +3,7 @@ package gmail.ebeletskiy.routememorizer.jobs;
 import android.location.Location;
 import com.path.android.jobqueue.Params;
 import de.greenrobot.event.EventBus;
-import gmail.ebeletskiy.routememorizer.data.PhotoUrlsDao;
+import gmail.ebeletskiy.routememorizer.data.PhotosDao;
 import gmail.ebeletskiy.routememorizer.data.api.WebService;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.data.api.response.PhotosResponse;
@@ -23,7 +23,7 @@ public class GetPhotosJob extends BaseJob {
   @Inject EventBus bus;
   @Inject LocationBoundaryHelper locationBoundaryHelper;
   @Inject RefreshPhotosEvent refreshPhotosEvent;
-  @Inject PhotoUrlsDao photosDao;
+  @Inject PhotosDao photosDao;
 
   public GetPhotosJob(@NotNull Location location) {
     super(new Params(Priority.NORMAL).requireNetwork().persist());

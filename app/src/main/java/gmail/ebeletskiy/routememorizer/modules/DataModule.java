@@ -1,21 +1,36 @@
 package gmail.ebeletskiy.routememorizer.modules;
 
+import android.net.Uri;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 import gmail.ebeletskiy.routememorizer.App;
-import gmail.ebeletskiy.routememorizer.data.PhotoUrlsDao;
-import gmail.ebeletskiy.routememorizer.data.RealmPhotoUrlsDao;
+import gmail.ebeletskiy.routememorizer.data.PhotosDao;
+import gmail.ebeletskiy.routememorizer.data.RealmPhotosDao;
 import io.realm.Realm;
 import javax.inject.Singleton;
+import timber.log.Timber;
 
 @Module(library = true, complete = false)
 public class DataModule {
 
-  @Singleton @Provides PhotoUrlsDao providePhotoUrlsDao(RealmPhotoUrlsDao dao) {
+  @Singleton @Provides PhotosDao providePhotoUrlsDao(RealmPhotosDao dao) {
     return dao;
   }
 
   @Singleton @Provides Realm provideRealm(App app) {
     return Realm.getInstance(app);
+  }
+
+  @Provides @Singleton Picasso providePicasso(App app, OkHttpClient client) {
+    return new Picasso.Builder(app).downloader(new OkHttpDownloader(client))
+        .listener(new Picasso.Listener() {
+          @Override public void onImageLoadFailed(Picasso picasso, Uri uri, Exception e) {
+            Timber.e(e, "Failed to load image: %s", uri);
+          }
+        })
+        .build();
   }
 }
