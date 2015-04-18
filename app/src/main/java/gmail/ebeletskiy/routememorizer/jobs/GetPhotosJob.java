@@ -48,6 +48,7 @@ public class GetPhotosJob extends BaseJob {
       gotPhotoEvent.setUrl(photo.getPhotoFileUrl());
       bus.postSticky(gotPhotoEvent);
     } else {
+      // TODO: Use increaseRange() in order to get some images - next round!
       bus.postSticky(new NoPhotoAvailableEvent());
     }
   }

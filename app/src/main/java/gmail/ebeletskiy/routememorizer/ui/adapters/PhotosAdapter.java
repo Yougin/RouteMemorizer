@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import gmail.ebeletskiy.routememorizer.R;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,7 @@ public class PhotosAdapter extends BaseAdapter {
   }
 
   public void setData(@NotNull List<String> photos) {
+    Collections.reverse(photos);
     this.urls = photos;
   }
 
