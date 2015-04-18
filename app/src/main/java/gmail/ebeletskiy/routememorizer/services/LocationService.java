@@ -7,6 +7,7 @@ import dagger.ObjectGraph;
 import gmail.ebeletskiy.routememorizer.App;
 import gmail.ebeletskiy.routememorizer.modules.LocationServiceModule;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class LocationService extends Service {
 
@@ -14,19 +15,24 @@ public class LocationService extends Service {
   @Inject ILocationServicePresenter presenter;
 
   @Override public void onCreate() {
+    Timber.d("Creating a Location Service...");
     scopedGraph = ((App) getApplication()).createScopedGraph(new LocationServiceModule());
     scopedGraph.inject(this);
   }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
+    Timber.d("Starting the Service...");
+
     presenter.start();
 
     return START_STICKY;
   }
 
   @Override public void onDestroy() {
+    Timber.d("Stopping the Service...");
     super.onDestroy();
 
+    presenter.stop();
     scopedGraph = null;
   }
 

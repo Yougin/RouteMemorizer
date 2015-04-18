@@ -6,6 +6,7 @@ public interface ILocationServicePresenter {
 
   void start();
 
-  void onEvent(ApiClientConnectedEvent event);
+  void stop();
 
+  void onEvent(ApiClientConnectedEvent event);
 }
