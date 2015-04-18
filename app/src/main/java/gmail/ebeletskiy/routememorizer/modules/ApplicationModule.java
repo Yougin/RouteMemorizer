@@ -9,7 +9,9 @@ import gmail.ebeletskiy.routememorizer.App;
 import gmail.ebeletskiy.routememorizer.jobs.JobManagerFactory;
 import javax.inject.Singleton;
 
-@Module(injects = App.class,
+@Module(
+    injects = App.class,
+    includes = { ApiModule.class },
     library = true)
 public class ApplicationModule {
 
