@@ -1,7 +1,8 @@
-package gmail.ebeletskiy.routememorizer;
+package gmail.ebeletskiy.routememorizer.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import gmail.ebeletskiy.routememorizer.R;
 
 public class MainActivity extends ActionBarActivity {
 
