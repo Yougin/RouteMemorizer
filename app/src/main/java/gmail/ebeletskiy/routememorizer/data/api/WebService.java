@@ -10,7 +10,7 @@ public interface WebService {
    *
    * @return a list of Photos {@link gmail.ebeletskiy.routememorizer.data.api.model.Photo}
    */
-  @GET("/map/get_panoramas.php?set=public&from=0&to=20&size=medium&mapfilter=true")
+  @GET("/map/get_panoramas.php?set=public&from=0&to=2&size=medium&mapfilter=true")
   PhotosResponse getImages(
       @Query("minx") double minx,
       @Query("miny") double miny,
