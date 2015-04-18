@@ -14,7 +14,8 @@ import javax.inject.Singleton;
     includes = {
         ApiModule.class,
         UtilsModule.class,
-        ApiModule.class
+        ApiModule.class,
+        DataModule.class
     },
     library = true)
 public class ApplicationModule {
