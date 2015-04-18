@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class LocationBoundaryHelper implements ILocationBoundaryProvider {
 
-  public final double DELTA = 0.012;
+  public final double DELTA = 0.002;
   public final double FACTOR = 0.2;
   private double multiplier = 1;
 
