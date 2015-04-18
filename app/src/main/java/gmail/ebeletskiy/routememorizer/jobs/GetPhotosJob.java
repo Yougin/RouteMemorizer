@@ -48,7 +48,7 @@ public class GetPhotosJob extends BaseJob {
       gotPhotoEvent.setUrl(photo.getPhotoFileUrl());
       bus.postSticky(gotPhotoEvent);
     } else {
-      bus.postSticky(new NoPhotoAvailableEvent()); // TODO: Handle event
+      bus.postSticky(new NoPhotoAvailableEvent());
     }
   }
 

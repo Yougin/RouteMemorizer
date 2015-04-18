@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -43,6 +44,10 @@ public class MainFragment extends InjectableFragment implements MainView {
 
   @Override public void setAdapter(@NotNull BaseAdapter adapter) {
     listView.setAdapter(adapter);
+  }
+
+  @Override public void showErrorMessage(String message) {
+    Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
   }
 
   @OnClick(R.id.main_action_button) void onActionButtonClick() {

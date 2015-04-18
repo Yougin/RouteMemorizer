@@ -6,4 +6,6 @@ import org.jetbrains.annotations.NotNull;
 public interface MainView {
 
   void setAdapter(@NotNull BaseAdapter adapter);
+
+  void showErrorMessage(String message);
 }

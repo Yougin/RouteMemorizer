@@ -1,6 +1,6 @@
 package gmail.ebeletskiy.routememorizer.data;
 
-import gmail.ebeletskiy.routememorizer.data.model.PhotoUrl;
+import gmail.ebeletskiy.routememorizer.data.api.model.PhotoUrl;
 import io.realm.Realm;
 import java.util.ArrayList;
 import java.util.List;

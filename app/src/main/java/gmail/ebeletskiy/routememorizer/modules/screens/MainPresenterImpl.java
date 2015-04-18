@@ -3,6 +3,7 @@ package gmail.ebeletskiy.routememorizer.modules.screens;
 import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.data.PhotosDao;
 import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
+import gmail.ebeletskiy.routememorizer.events.NoPhotoAvailableEvent;
 import gmail.ebeletskiy.routememorizer.ui.adapters.PhotosAdapter;
 import gmail.ebeletskiy.routememorizer.ui.fragments.MainView;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
@@ -37,6 +38,10 @@ public class MainPresenterImpl implements MainPresenter {
   @Override public void onEventMainThread(GotPhotoEvent event) {
     photosDao.savePhoto(event.getUrl());
     updateAdapter(getListOfPhotos());
+  }
+
+  @Override public void onEventMainThread(NoPhotoAvailableEvent event) {
+    view.showErrorMessage("No photo available"); // TODO: inject resources and extract string from there
   }
 
   @NotNull private List<String> getListOfPhotos() {

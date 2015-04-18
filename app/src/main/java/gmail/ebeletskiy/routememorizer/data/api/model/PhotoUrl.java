@@ -1,4 +1,4 @@
-package gmail.ebeletskiy.routememorizer.data.model;
+package gmail.ebeletskiy.routememorizer.data.api.model;
 
 import io.realm.RealmObject;
 
