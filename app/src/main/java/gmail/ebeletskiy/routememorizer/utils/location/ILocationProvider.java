@@ -2,6 +2,7 @@ package gmail.ebeletskiy.routememorizer.utils.location;
 
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface ILocationProvider {
@@ -12,7 +13,7 @@ public interface ILocationProvider {
 
   @Nullable Location getLastKnownUserLocation();
 
-  void setLocationUpdateListener(LocationListener locationUpdateListener);
+  void setLocationUpdateListener(@NotNull LocationListener locationUpdateListener);
 
   void startLocationUpdates();
 }
