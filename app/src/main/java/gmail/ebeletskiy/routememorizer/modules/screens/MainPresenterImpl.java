@@ -29,6 +29,7 @@ public class MainPresenterImpl implements MainPresenter {
 
   @Override public void onResume() {
     bus.registerSticky(this);
+    showPhotosIfAny();
   }
 
   @Override public void onPause() {
@@ -37,6 +38,10 @@ public class MainPresenterImpl implements MainPresenter {
 
   @Override public void onEventMainThread(GotPhotoEvent event) {
     photosDao.savePhoto(event.getUrl());
+    showPhotosIfAny();
+  }
+
+  private void showPhotosIfAny() {
     updateAdapter(getListOfPhotos());
   }
 
