@@ -47,15 +47,15 @@ public class GetPhotosJob extends BaseJob {
     Photo photo = photosResponse.getPhotos().get(FIRST_IMAGE);
 
     if (photo != null) {
-      persistPhoto(photo.getPhotoUrl());
+      persistPhoto(photo);
       bus.postSticky(refreshPhotosEvent);
     } else {
       bus.postSticky(new NoPhotoAvailableEvent()); // TODO: Handle event
     }
   }
 
-  private void persistPhoto(String photoUrl) {
-    photosDao.savePhotoUrl(photoUrl);
+  private void persistPhoto(Photo photoUrl) {
+    photosDao.savePhoto(photoUrl);
   }
 
   @Override protected void onCancel() {
