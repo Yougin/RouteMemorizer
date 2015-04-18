@@ -6,7 +6,7 @@ import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.data.api.WebService;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.data.api.response.PhotosResponse;
-import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
+import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
 import gmail.ebeletskiy.routememorizer.utils.location.LocationBoundaryHelper;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +19,7 @@ public class GetPhotosJob extends BaseJob {
   @Inject WebService webService;
   @Inject EventBus bus;
   @Inject LocationBoundaryHelper locationBoundaryHelper;
-  @Inject GotPhotoEvent gotPhotoEvent;
+  @Inject RefreshPhotosEvent refreshPhotosEvent;
 
   public GetPhotosJob(@NotNull Location location) {
     super(new Params(Priority.NORMAL).requireNetwork().persist());
@@ -43,9 +43,14 @@ public class GetPhotosJob extends BaseJob {
     Photo photo = photosResponse.getPhotos().get(FIRST_IMAGE);
 
     if (photo != null) {
-      gotPhotoEvent.setPhotoUrl(photo.getPhotoUrl());
-      bus.post(gotPhotoEvent);
+      persistPhoto(photo.getPhotoUrl());
+      bus.postSticky(refreshPhotosEvent);
     }
+  }
+
+  private void persistPhoto(String photoUrl) {
+    // TODO: implement me
+
   }
 
   @Override protected void onCancel() {
