@@ -1,7 +1,8 @@
 package gmail.ebeletskiy.routememorizer.data;
 
-import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
+import gmail.ebeletskiy.routememorizer.data.model.PhotoUrl;
 import io.realm.Realm;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -15,19 +16,24 @@ public class RealmPhotosDao implements PhotosDao {
     this.realm = realm;
   }
 
-  @Override public List<Photo> getAllPhotos() {
-    Timber.d(
-        "Quering for all photos, the amount of photos in db is " + realm.allObjects(Photo.class)
-            .size());
+  @Override public List<String> getAllPhotos() {
+    Timber.d("Querying all photos urls, the amount of photos in db is " + realm.allObjects(
+            PhotoUrl.class).size());
 
-    return realm.allObjects(Photo.class);
+    List<String> result = new ArrayList<>();
+    for (PhotoUrl photoUrl : realm.allObjects(PhotoUrl.class)) {
+      result.add(photoUrl.getUrl());
+    }
+
+    return result;
   }
 
-  @Override public void savePhoto(@NotNull Photo photo) {
-    Timber.d("Saving photo object: " + photo);
+  @Override public void savePhoto(@NotNull String photoUrl) {
+    Timber.d("Saving url: " + photoUrl);
 
     realm.beginTransaction();
-    realm.copyToRealm(photo);
+    PhotoUrl object = realm.createObject(PhotoUrl.class);
+    object.setUrl(photoUrl);
     realm.commitTransaction();
   }
 }

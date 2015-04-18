@@ -16,11 +16,11 @@ import timber.log.Timber;
 @Module(library = true, complete = false)
 public class DataModule {
 
-  @Singleton @Provides PhotosDao providePhotoUrlsDao(RealmPhotosDao dao) {
+  @Provides @Singleton PhotosDao providePhotoUrlsDao(RealmPhotosDao dao) {
     return dao;
   }
 
-  @Singleton @Provides Realm provideRealm(App app) {
+  @Provides @Singleton Realm provideRealm(App app) {
     return Realm.getInstance(app);
   }
 

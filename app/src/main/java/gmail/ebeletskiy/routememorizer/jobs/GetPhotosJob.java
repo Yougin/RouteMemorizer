@@ -3,12 +3,11 @@ package gmail.ebeletskiy.routememorizer.jobs;
 import android.location.Location;
 import com.path.android.jobqueue.Params;
 import de.greenrobot.event.EventBus;
-import gmail.ebeletskiy.routememorizer.data.PhotosDao;
 import gmail.ebeletskiy.routememorizer.data.api.WebService;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.data.api.response.PhotosResponse;
+import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
 import gmail.ebeletskiy.routememorizer.events.NoPhotoAvailableEvent;
-import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
 import gmail.ebeletskiy.routememorizer.utils.location.ILocationBoundaryProvider;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +21,7 @@ public class GetPhotosJob extends BaseJob {
   @Inject WebService webService;
   @Inject EventBus bus;
   @Inject ILocationBoundaryProvider locationBoundaryHelper;
-  @Inject RefreshPhotosEvent refreshPhotosEvent;
-  @Inject PhotosDao photosDao;
+  @Inject GotPhotoEvent gotPhotoEvent;
 
   public GetPhotosJob(@NotNull Location location) {
     super(new Params(Priority.NORMAL).requireNetwork());
@@ -47,15 +45,11 @@ public class GetPhotosJob extends BaseJob {
     Photo photo = photosResponse.getPhotos().get(FIRST_IMAGE);
 
     if (photo != null) {
-      persistPhoto(photo);
-      bus.postSticky(refreshPhotosEvent);
+      gotPhotoEvent.setUrl(photo.getPhotoFileUrl());
+      bus.postSticky(gotPhotoEvent);
     } else {
       bus.postSticky(new NoPhotoAvailableEvent()); // TODO: Handle event
     }
-  }
-
-  private void persistPhoto(Photo photoUrl) {
-    photosDao.savePhoto(photoUrl);
   }
 
   @Override protected void onCancel() {
@@ -63,6 +57,6 @@ public class GetPhotosJob extends BaseJob {
   }
 
   @Override protected boolean shouldReRunOnThrowable(Throwable throwable) {
-    return true;
+    return false;
   }
 }

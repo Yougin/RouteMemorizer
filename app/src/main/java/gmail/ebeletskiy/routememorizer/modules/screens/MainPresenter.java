@@ -1,6 +1,6 @@
 package gmail.ebeletskiy.routememorizer.modules.screens;
 
-import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
+import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
 
 public interface MainPresenter {
 
@@ -8,6 +8,6 @@ public interface MainPresenter {
 
   void onPause();
 
-  void onEventMainThread(RefreshPhotosEvent event);
+  void onEventMainThread(GotPhotoEvent event);
 
 }

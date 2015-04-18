@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import gmail.ebeletskiy.routememorizer.R;
-import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
 import java.util.List;
 import javax.inject.Inject;
@@ -17,23 +16,23 @@ public class PhotosAdapter extends BaseAdapter {
 
   private final LayoutInflater inflater;
   private final Picasso picasso;
-  private List<Photo> photos;
+  private List<String> urls;
 
   @Inject public PhotosAdapter(LayoutInflater inflater, Picasso picasso) {
     this.inflater = Preconditions.checkNotNull(inflater);
     this.picasso = Preconditions.checkNotNull(picasso);
   }
 
-  public void setData(@NotNull List<Photo> photos) {
-    this.photos = photos;
+  public void setData(@NotNull List<String> photos) {
+    this.urls = photos;
   }
 
   @Override public int getCount() {
-    return photos.size();
+    return urls.size();
   }
 
   @Override public Object getItem(int position) {
-    return photos.get(position);
+    return urls.get(position);
   }
 
   @Override public long getItemId(int position) {
@@ -48,9 +47,7 @@ public class PhotosAdapter extends BaseAdapter {
       view = (ImageView) convertView;
     }
 
-    Photo photo = photos.get(position);
-    String photoUrl = photo.getPhotoUrl();
-    picasso.load(photoUrl).into(view);
+    picasso.load(urls.get(position)).into(view);
 
     return view;
   }

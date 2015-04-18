@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import io.realm.RealmObject;
 
-public class Photo extends RealmObject {
+public class Photo {
 
   @Expose private long height;
   @Expose private double latitude;
@@ -187,6 +187,22 @@ public class Photo extends RealmObject {
     this.width = width;
   }
 
+  @Override public String toString() {
+    return "Photo{" +
+        "height=" + height +
+        ", latitude=" + latitude +
+        ", longitude=" + longitude +
+        ", ownerId=" + ownerId +
+        ", ownerName='" + ownerName + '\'' +
+        ", ownerUrl='" + ownerUrl + '\'' +
+        ", photoFileUrl='" + photoFileUrl + '\'' +
+        ", photoId=" + photoId +
+        ", photoTitle='" + photoTitle + '\'' +
+        ", photoUrl='" + photoUrl + '\'' +
+        ", uploadDate='" + uploadDate + '\'' +
+        ", width=" + width +
+        '}';
+  }
 }
 
 

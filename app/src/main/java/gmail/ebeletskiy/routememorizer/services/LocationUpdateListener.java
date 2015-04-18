@@ -17,7 +17,7 @@ public class LocationUpdateListener implements LocationListener {
   }
 
   @Override public void onLocationChanged(Location location) {
-    Timber.e("Location update received " + location);
+    Timber.i("Location update received " + location);
 
     jobManager.addJob(new GetPhotosJob(location));
   }

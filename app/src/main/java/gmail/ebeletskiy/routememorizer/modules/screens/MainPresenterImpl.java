@@ -2,8 +2,7 @@ package gmail.ebeletskiy.routememorizer.modules.screens;
 
 import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.data.PhotosDao;
-import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
-import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
+import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
 import gmail.ebeletskiy.routememorizer.ui.adapters.PhotosAdapter;
 import gmail.ebeletskiy.routememorizer.ui.fragments.MainView;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
@@ -35,12 +34,13 @@ public class MainPresenterImpl implements MainPresenter {
     bus.unregister(this);
   }
 
-  @Override public void onEventMainThread(RefreshPhotosEvent event) {
+  @Override public void onEventMainThread(GotPhotoEvent event) {
+    photosDao.savePhoto(event.getUrl());
     updateAdapter(getListOfPhotos());
   }
 
-  @NotNull private List<Photo> getListOfPhotos() {
-    List<Photo> allPhotos = photosDao.getAllPhotos();
+  @NotNull private List<String> getListOfPhotos() {
+    List<String> allPhotos = photosDao.getAllPhotos();
 
     if (allPhotos == null) {
       return Collections.emptyList();
@@ -49,7 +49,7 @@ public class MainPresenterImpl implements MainPresenter {
     return allPhotos;
   }
 
-  private void updateAdapter(@NotNull List<Photo> photos) {
+  private void updateAdapter(@NotNull List<String> photos) {
     adapter.setData(photos);
     view.setAdapter(adapter);
   }
