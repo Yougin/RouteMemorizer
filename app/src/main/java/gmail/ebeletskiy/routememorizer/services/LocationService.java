@@ -22,6 +22,7 @@ public class LocationService extends Service {
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     Timber.d("Starting the Service...");
+    // TODO: check if service is already running
 
     presenter.start();
 

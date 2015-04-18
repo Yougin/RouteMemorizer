@@ -1,6 +1,6 @@
 package gmail.ebeletskiy.routememorizer.modules;
 
-import com.google.android.gms.location.LocationListener;
+import com.path.android.jobqueue.JobManager;
 import dagger.Module;
 import dagger.Provides;
 import gmail.ebeletskiy.routememorizer.services.ILocationServicePresenter;
@@ -18,7 +18,7 @@ public class LocationServiceModule {
     return presenter;
   }
 
-  @Provides @Singleton LocationListener provideLocationListener() {
-    return new LocationUpdateListener();
+  @Provides @Singleton LocationUpdateListener provideLocationListener(JobManager jobManager) {
+    return new LocationUpdateListener(jobManager);
   }
 }

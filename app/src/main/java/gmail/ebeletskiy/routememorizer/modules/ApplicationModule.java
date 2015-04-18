@@ -10,12 +10,13 @@ import gmail.ebeletskiy.routememorizer.jobs.JobManagerFactory;
 import javax.inject.Singleton;
 
 @Module(
-    injects = App.class,
+    injects = { App.class },
     includes = {
         ApiModule.class,
         UtilsModule.class,
         ApiModule.class,
-        DataModule.class
+        DataModule.class,
+        JobsModule.class
     },
     library = true)
 public class ApplicationModule {

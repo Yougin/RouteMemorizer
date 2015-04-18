@@ -24,8 +24,8 @@ public class DataModule {
     return Realm.getInstance(app);
   }
 
-  @Provides @Singleton Picasso providePicasso(App app, OkHttpClient client) {
-    return new Picasso.Builder(app).downloader(new OkHttpDownloader(client))
+  @Provides @Singleton Picasso providePicasso(App app) {
+    return new Picasso.Builder(app)
         .listener(new Picasso.Listener() {
           @Override public void onImageLoadFailed(Picasso picasso, Uri uri, Exception e) {
             Timber.e(e, "Failed to load image: %s", uri);

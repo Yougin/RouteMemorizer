@@ -14,7 +14,7 @@ public class ILocationServicePresenterImpl implements ILocationServicePresenter 
   private final EventBus bus;
 
   @Inject public ILocationServicePresenterImpl(ILocationProvider locationProvider,
-      LocationListener locationUpdateListener, EventBus bus) {
+      LocationUpdateListener locationUpdateListener, EventBus bus) {
     this.locationProvider = Preconditions.checkNotNull(locationProvider);
     this.locationUpdateListener = Preconditions.checkNotNull(locationUpdateListener);
     this.bus = Preconditions.checkNotNull(bus);

@@ -1,12 +1,12 @@
 package gmail.ebeletskiy.routememorizer.modules.screens;
 
-import com.google.common.base.Preconditions;
 import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.data.PhotosDao;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
 import gmail.ebeletskiy.routememorizer.ui.adapters.PhotosAdapter;
 import gmail.ebeletskiy.routememorizer.ui.fragments.MainView;
+import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;

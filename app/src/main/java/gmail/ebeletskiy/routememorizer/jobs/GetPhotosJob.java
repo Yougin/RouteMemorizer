@@ -9,7 +9,7 @@ import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import gmail.ebeletskiy.routememorizer.data.api.response.PhotosResponse;
 import gmail.ebeletskiy.routememorizer.events.NoPhotoAvailableEvent;
 import gmail.ebeletskiy.routememorizer.events.RefreshPhotosEvent;
-import gmail.ebeletskiy.routememorizer.utils.location.LocationBoundaryHelper;
+import gmail.ebeletskiy.routememorizer.utils.location.ILocationBoundaryProvider;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,12 +21,12 @@ public class GetPhotosJob extends BaseJob {
 
   @Inject WebService webService;
   @Inject EventBus bus;
-  @Inject LocationBoundaryHelper locationBoundaryHelper;
+  @Inject ILocationBoundaryProvider locationBoundaryHelper;
   @Inject RefreshPhotosEvent refreshPhotosEvent;
   @Inject PhotosDao photosDao;
 
   public GetPhotosJob(@NotNull Location location) {
-    super(new Params(Priority.NORMAL).requireNetwork().persist());
+    super(new Params(Priority.NORMAL).requireNetwork());
     this.location = location;
   }
 
