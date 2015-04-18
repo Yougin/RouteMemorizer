@@ -1,7 +1,8 @@
 package gmail.ebeletskiy.routememorizer.modules.screens;
 
 import de.greenrobot.event.EventBus;
-import gmail.ebeletskiy.routememorizer.data.PhotosDao;
+import gmail.ebeletskiy.routememorizer.data.persistance.PhotosDao;
+import gmail.ebeletskiy.routememorizer.data.prefs.IServiceWatcher;
 import gmail.ebeletskiy.routememorizer.events.GotPhotoEvent;
 import gmail.ebeletskiy.routememorizer.events.NoPhotoAvailableEvent;
 import gmail.ebeletskiy.routememorizer.ui.adapters.PhotosAdapter;
@@ -18,13 +19,15 @@ public class MainPresenterImpl implements MainPresenter {
   private final EventBus bus;
   private final PhotosDao photosDao;
   private final PhotosAdapter adapter;
+  private final IServiceWatcher serviceWatcher;
 
   @Inject public MainPresenterImpl(MainView view, EventBus bus, PhotosDao photosDao,
-      PhotosAdapter adapter) {
+      PhotosAdapter adapter, IServiceWatcher serviceWatcher) {
     this.bus = Preconditions.checkNotNull(bus);
     this.view = Preconditions.checkNotNull(view);
     this.photosDao = Preconditions.checkNotNull(photosDao);
     this.adapter = Preconditions.checkNotNull(adapter);
+    this.serviceWatcher = Preconditions.checkNotNull(serviceWatcher);
   }
 
   @Override public void onResume() {
@@ -48,7 +51,18 @@ public class MainPresenterImpl implements MainPresenter {
   }
 
   @Override public void onEventMainThread(NoPhotoAvailableEvent event) {
-    view.showErrorMessage("No photo available"); // TODO: inject resources and extract string from there
+    view.showErrorMessage(
+        "No photo available"); // TODO: inject resources and extract string from there
+  }
+
+  @Override public void onActionButtonClick() {
+    if (serviceWatcher.isServiceRunning()) {
+      view.stopService();
+      view.setActionButtonText("Start");
+    } else {
+      view.startService();
+      view.setActionButtonText("Stop");
+    }
   }
 
   @NotNull private List<String> getListOfPhotos() {

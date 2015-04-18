@@ -1,4 +1,4 @@
-package gmail.ebeletskiy.routememorizer.data;
+package gmail.ebeletskiy.routememorizer.data.persistance;
 
 import gmail.ebeletskiy.routememorizer.data.api.model.PhotoUrl;
 import io.realm.Realm;

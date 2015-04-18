@@ -13,4 +13,5 @@ public interface MainPresenter {
 
   void onEventMainThread(NoPhotoAvailableEvent event);
 
+  void onActionButtonClick();
 }

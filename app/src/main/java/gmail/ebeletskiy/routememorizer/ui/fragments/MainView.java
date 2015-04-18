@@ -8,4 +8,10 @@ public interface MainView {
   void setAdapter(@NotNull BaseAdapter adapter);
 
   void showErrorMessage(String message);
+
+  void startService();
+
+  void stopService();
+
+  void setActionButtonText(String text);
 }

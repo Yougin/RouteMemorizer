@@ -1,4 +1,4 @@
-package gmail.ebeletskiy.routememorizer.data;
+package gmail.ebeletskiy.routememorizer.data.persistance;
 
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
