@@ -39,6 +39,8 @@ public class MainPresenterImpl implements MainPresenter {
   @Override public void onEventMainThread(GotPhotoEvent event) {
     photosDao.savePhoto(event.getUrl());
     showPhotosIfAny();
+
+    bus.removeAllStickyEvents();
   }
 
   private void showPhotosIfAny() {
