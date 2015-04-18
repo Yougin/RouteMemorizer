@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import gmail.ebeletskiy.routememorizer.data.api.model.Photo;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class PhotosResponse {
 
@@ -18,7 +19,7 @@ public class PhotosResponse {
     this.count = count;
   }
 
-  public List<Photo> getPhotos() {
+  @NotNull public List<Photo> getPhotos() {
     return photos;
   }
 

@@ -62,6 +62,7 @@ public class UserLocationProvider
     }
   }
 
+  // TODO: Check if you really need it
   @Override @Nullable public Location getLastKnownUserLocation() {
     return lastKnownUserLocation;
   }

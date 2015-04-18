@@ -8,7 +8,9 @@ import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.App;
 import gmail.ebeletskiy.routememorizer.events.ApiClientConnectedEvent;
 import gmail.ebeletskiy.routememorizer.events.LocationUpdateEvent;
+import gmail.ebeletskiy.routememorizer.utils.location.ILocationBoundaryProvider;
 import gmail.ebeletskiy.routememorizer.utils.location.ILocationProvider;
+import gmail.ebeletskiy.routememorizer.utils.location.LocationBoundaryHelper;
 import gmail.ebeletskiy.routememorizer.utils.location.UserLocationProvider;
 import javax.inject.Singleton;
 
@@ -44,5 +46,9 @@ public class UtilsModule {
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     locationRequest.setSmallestDisplacement(SMALLEST_DISPLACEMENT_METERS);
     return locationRequest;
+  }
+
+  @Provides ILocationBoundaryProvider provideLocationBoundaryProvider() {
+    return new LocationBoundaryHelper();
   }
 }
