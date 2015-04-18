@@ -38,5 +38,7 @@ public class ILocationServicePresenterImpl implements ILocationServicePresenter 
   @Override public void onEvent(ApiClientConnectedEvent event) {
     locationProvider.setLocationUpdateListener(locationUpdateListener);
     locationProvider.startLocationUpdates();
+
+    bus.removeStickyEvent(ApiClientConnectedEvent.class);
   }
 }

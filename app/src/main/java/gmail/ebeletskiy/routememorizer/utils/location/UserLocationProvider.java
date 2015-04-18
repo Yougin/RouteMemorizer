@@ -1,6 +1,5 @@
 package gmail.ebeletskiy.routememorizer.utils.location;
 
-import android.location.Location;
 import android.os.Bundle;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -11,7 +10,6 @@ import de.greenrobot.event.EventBus;
 import gmail.ebeletskiy.routememorizer.events.ApiClientConnectedEvent;
 import gmail.ebeletskiy.routememorizer.utils.helpers.Preconditions;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import timber.log.Timber;
 
 public class UserLocationProvider
@@ -24,11 +22,11 @@ public class UserLocationProvider
   private final LocationRequest locationRequest;
 
   private GoogleApiClient mApiClient;
-  private Location lastKnownUserLocation;
   private LocationListener locationUpdateListener;
 
   public UserLocationProvider(@NotNull GoogleApiClient.Builder builder, @NotNull EventBus bus,
-      @NotNull ApiClientConnectedEvent apiClientConnectedEvent, @NotNull LocationRequest locationRequest) {
+      @NotNull ApiClientConnectedEvent apiClientConnectedEvent,
+      @NotNull LocationRequest locationRequest) {
     this.builder = Preconditions.checkNotNull(builder);
     this.bus = Preconditions.checkNotNull(bus);
     this.apiClientConnectedEvent = Preconditions.checkNotNull(apiClientConnectedEvent);
@@ -71,22 +69,13 @@ public class UserLocationProvider
     Preconditions.checkNotNull(locationUpdateListener,
         "You must set locationUpdateListener before invoking this method");
 
-    LocationServices.FusedLocationApi
-        .requestLocationUpdates(mApiClient, locationRequest, locationUpdateListener);
+    LocationServices.FusedLocationApi.requestLocationUpdates(mApiClient, locationRequest,
+        locationUpdateListener);
   }
 
   @Override public void onConnected(Bundle bundle) {
     Timber.d("onConnected");
-
-    Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mApiClient);
-    if (lastLocation != null) {
-      Timber.d(
-          "Location fetched " + lastLocation.getLatitude() + " " + lastLocation.getLongitude());
-      lastKnownUserLocation = lastLocation;
-      bus.postSticky(apiClientConnectedEvent);
-    } else {
-      Timber.d("last location is null");
-    }
+    bus.postSticky(apiClientConnectedEvent);
   }
 
   @Override public void onConnectionSuspended(int i) {

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
+// TODO: inject resources and extract string from there
 public class MainPresenterImpl implements MainPresenter {
 
   private final MainView view;
@@ -32,7 +33,7 @@ public class MainPresenterImpl implements MainPresenter {
 
   @Override public void onResume() {
     bus.registerSticky(this);
-    showPhotosIfAny();
+    updateUi();
   }
 
   @Override public void onPause() {
@@ -51,8 +52,7 @@ public class MainPresenterImpl implements MainPresenter {
   }
 
   @Override public void onEventMainThread(NoPhotoAvailableEvent event) {
-    view.showErrorMessage(
-        "No photo available"); // TODO: inject resources and extract string from there
+    view.showErrorMessage("No photo available");
   }
 
   @Override public void onActionButtonClick() {
@@ -78,5 +78,16 @@ public class MainPresenterImpl implements MainPresenter {
   private void updateAdapter(@NotNull List<String> photos) {
     adapter.setData(photos);
     view.setAdapter(adapter);
+  }
+
+  private void updateUi() {
+    showPhotosIfAny();
+    updateActionButtonText();
+  }
+
+  private void updateActionButtonText() {
+    if (serviceWatcher.isServiceRunning()) {
+      view.setActionButtonText("Stop");
+    }
   }
 }
